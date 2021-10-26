@@ -8,10 +8,15 @@ from .models import Movie, Rating
 from .serializers import MovieSerializer, RatingSerializer, UserSerializer
 
 
+# class UserViewSet(viewsets.ModelViewSet):
+#     queryset = User.objects.all()
+#     serializer_class = UserSerializer
+#     authentication_classes = (TokenAuthentication,)
+
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    authentication_classes = (TokenAuthentication,)
+    permission_classes = (AllowAny,)
 
 class MovieViewSet(viewsets.ModelViewSet):
     queryset = Movie.objects.all()
@@ -61,3 +66,4 @@ class RatingViewSet(viewsets.ModelViewSet):
     def create(self, request, *args, **kwargs):
         response = {'message': 'You cant create rating like that'}
         return Response(response, status=status.HTTP_400_BAD_REQUEST)
+
